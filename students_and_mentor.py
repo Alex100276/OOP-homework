@@ -5,7 +5,7 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
-        self.average_rating = []
+        self.average_rating = 0
 
     def rate_h(self, lecturer, course, grade):
         """Выставления оценки лектору студентом, по курсу у этого студента
@@ -54,7 +54,7 @@ class Lecturer(Mentor):  # лекторы
         self.surname = surname
         self.courses_attached = []  # курсы
         self.grades = {}
-        self.average_rating = []  # средняя оценка за лекции
+        self.average_rating = 0  # средняя оценка за лекции
 
     def __str__(self):
         """Возвращает характеристики экземпляра класса вида"""
@@ -156,4 +156,47 @@ print(f'Результат сравнения студентов (по сред�
       f'{student1.name} {student1.surname} < {student2.name} {student2.surname} = {student1 > student2}')
 
 print(f'Результат сравнения лекторов (по средним оценкам за лекции): '
-      f'{lecturer1.name} {lecturer1.surname} < {lecturer2.name} {lecturer2.surname} = {lecturer1 > lecturer2}')
+      f'{lecturer1.name} {lecturer1.surname} < {lecturer2.name}{lecturer2.surname} = {lecturer1 > lecturer2}')
+
+student_list = [student1, student2]
+
+lecturer_list = [lecturer1, lecturer2]
+
+
+def verge_rating_students(student_list: [], course_name: ()):
+    sum_all = 0
+    count_all = 0
+    for stud in student_list:
+        if course_name in stud.courses_in_progress:
+            sum_all += stud.average_rating
+            count_all += 1
+        if count_all == 0:
+            return 0
+        else:
+            return sum_all / count_all
+
+
+def verge_rating_lecturer(lecturer_list: [], course_name: ()):
+    sum_all = 0
+    count_all = 0
+    for lec in lecturer_list:
+        if course_name in lec.courses_attached:
+            sum_all += lec.average_rating
+            count_all += 1
+        if count_all == 0:
+            return 0
+        else:
+            return sum_all / count_all
+
+
+print(
+    f'Средняя оценка за домашнее задание у студентов по курсу Python: {verge_rating_students(student_list, "Python")}')
+
+
+print(f"Средняя оценка за домашнее задание у студентов по курсу Git: {verge_rating_students(student_list, 'Git')}")
+
+
+print(f"Средняя оценка за курсы у лекторов по курсу Git: {verge_rating_lecturer(lecturer_list, 'Git')}")
+
+
+print(f"Средняя оценка за курсы у лекторов по курсу Python: {verge_rating_lecturer(lecturer_list, 'Python')}")
